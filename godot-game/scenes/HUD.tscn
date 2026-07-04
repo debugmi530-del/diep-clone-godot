@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1"]
+
+[node name="HUD" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="HealthPanel" type="VBoxContainer" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 360.0
+offset_bottom = 110.0
+
+[node name="LevelLabel" type="Label" parent="HealthPanel"]
+text = "Уровень 1"
+
+[node name="HealthBar" type="ProgressBar" parent="HealthPanel"]
+custom_minimum_size = Vector2(0, 18)
+show_percentage = false
+
+[node name="XPBar" type="ProgressBar" parent="HealthPanel"]
+custom_minimum_size = Vector2(0, 8)
+show_percentage = false
+
+[node name="ScoreLabel" type="Label" parent="HealthPanel"]
+text = "Очки: 0"
+
+[node name="StatPanel" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -320.0
+offset_right = -24.0
+offset_bottom = -24.0
+
+[node name="StatBox" type="VBoxContainer" parent="StatPanel"]
+
+[node name="EvolvePanel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -80.0
+offset_right = 300.0
+offset_bottom = -20.0
+
+[node name="EvolveBox" type="HBoxContainer" parent="EvolvePanel"]
+alignment = 1
+
+[node name="LeaderboardPanel" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 260.0
+
+[node name="LeaderboardBox" type="VBoxContainer" parent="LeaderboardPanel"]
+
+[node name="DeathPanel" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+visible = false
+
+[node name="CenterBox" type="VBoxContainer" parent="DeathPanel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = 80.0
+
+[node name="DeathLabel" type="Label" parent="DeathPanel/CenterBox"]
+text = "Вы уничтожены"
+horizontal_alignment = 1
+
+[node name="RespawnButton" type="Button" parent="DeathPanel/CenterBox"]
+text = "Играть снова"
+
+[node name="MenuButton" type="Button" parent="DeathPanel/CenterBox"]
+text = "Главное меню"
+
+[connection signal="pressed" from="DeathPanel/CenterBox/RespawnButton" to="." method="_on_respawn_pressed"]
+[connection signal="pressed" from="DeathPanel/CenterBox/MenuButton" to="." method="_on_menu_pressed"]
