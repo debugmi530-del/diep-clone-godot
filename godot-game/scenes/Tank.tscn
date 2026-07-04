@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/tank/TankController.gd" id="1"]
+
+[node name="Tank" type="RigidBody2D"]
+script = ExtResource("1")
+collision_layer = 1
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="BodyPolygon" type="Polygon2D" parent="."]
+
+[node name="Barrels" type="Node2D" parent="."]
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = -40.0
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+show_percentage = false
