@@ -51,13 +51,25 @@ func _build_visual() -> void:
         health_bar.position = Vector2(-def.size, -def.size - 14)
         health_bar.size = Vector2(def.size * 2, 6)
 
-func take_damage(amount: float, source_velocity: Vector2 = Vector2.ZERO) -> void:
+func take_damage(amount: float, source = null) -> void:
         health -= amount
         health_bar.visible = true
         health_bar.value = health
         if health <= 0:
+                _grant_xp_to_killer(source)
                 died.emit(def.xp_reward, global_position)
                 queue_free()
+
+func _grant_xp_to_killer(source) -> void:
+        # `source` may be the bullet/mine/drone that hit us (which knows which
+        # tank fired it) or a tank directly (e.g. body-damage ramming a shape).
+        var killer_tank = null
+        if source != null and "owner_tank" in source and is_instance_valid(source.owner_tank):
+                killer_tank = source.owner_tank
+        elif source != null and source is TankController:
+                killer_tank = source
+        if killer_tank != null and is_instance_valid(killer_tank):
+                killer_tank.gain_xp(def.xp_reward)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
         # Gentle idle rotation so the arena feels alive even for sleeping shapes.
