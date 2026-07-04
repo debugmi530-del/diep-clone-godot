@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/tank/Bullet.gd" id="1"]
+
+[node name="Bullet" type="RigidBody2D"]
+script = ExtResource("1")
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
