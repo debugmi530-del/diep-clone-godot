@@ -9,7 +9,9 @@ on:
   workflow_dispatch: {}
 
 env:
-  GODOT_VERSION: "4.3.0"
+  # Godot release tags on GitHub use the short "X.Y-stable" form (not
+  # "X.Y.Z-stable"), e.g. "4.3-stable" -> Godot_v4.3-stable_linux.x86_64.zip.
+  GODOT_VERSION: "4.3"
 
 jobs:
   export-windows:
@@ -30,7 +32,7 @@ jobs:
           set -e
           mkdir -p ~/godot-bin
           cd ~/godot-bin
-          curl -L -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          curl -fL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
           unzip -q godot.zip
           chmod +x Godot_v${GODOT_VERSION}-stable_linux.x86_64
           sudo ln -sf "$PWD/Godot_v${GODOT_VERSION}-stable_linux.x86_64" /usr/local/bin/godot
@@ -41,7 +43,7 @@ jobs:
           set -e
           mkdir -p ~/godot-templates
           cd ~/godot-templates
-          curl -L -o templates.tpz "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          curl -fL -o templates.tpz "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
           unzip -q templates.tpz
 
       - name: Install export templates
